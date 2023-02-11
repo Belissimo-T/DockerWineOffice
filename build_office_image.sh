@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "=>" Starting build of Office image
 docker stop fs_install_office
 docker rm -f fs_install_office
@@ -16,8 +18,7 @@ docker container run --name fs_install_office --net=host --ipc=host -e DISPLAY -
 echo "=>" Creating Image with installed Office
 docker commit fs_install_office fs_office_installed
 
-echo "=>" Running Shell in installed Office image
-docker run -ti --net=host --ipc=host -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --entrypoint=bash fs_office_installed
+bash ./run_office_image.sh
 
 # docker exec --privileged fs_office_installed ls -1 /var/log
 

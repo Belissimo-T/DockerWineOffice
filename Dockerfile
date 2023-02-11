@@ -47,7 +47,7 @@ ARG SERVICE_NAME="file_sorter"
 ENV SERVICE_NAME=${SERVICE_NAME}
 
 # copy files
-COPY docker_ressources/*.* ./
+COPY docker_resources/*.* ./
 
 ENV WINEPREFIX $HOME/.msoffice
 ENV WINEARCH win32
