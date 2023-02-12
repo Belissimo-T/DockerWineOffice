@@ -58,9 +58,26 @@ ENV WINEARCH win32
 # install office
 CMD ["bash", "install_office.sh"]
 
-FROM wine32 as wine32_office
+FROM wine_office/office_installed as wine32_office_python
+ARG SERVICE_NAME="wineuser"
+ENV SERVICE_NAME=${SERVICE_NAME}
 
-COPY --from=wine32_install_office $WINEPREFIX $WINEPREFIX
+# install python
+RUN curl https://globalcdn.nuget.org/packages/pythonx86.3.10.10.nupkg -o python_pkg.nupkg
+RUN mkdir -p $WINEPREFIX/drive_c/Python310
+RUN unzip python_pkg.nupkg "tools/*" -d $WINEPREFIX/drive_c/Python310
+RUN mv $WINEPREFIX/drive_c/Python310/tools/* $WINEPREFIX/drive_c/Python310
+RUN rm -rf $WINEPREFIX/drive_c/Python310/tools
 
-ENV WINEPREFIX $HOME/.msoffice
-CMD ["wine", "powerpnt.exe"]
+ENV WINEPATH $WINEPREFIX/drive_c/Python310
+
+RUN wine python.exe --version
+
+## install pip
+#RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+#RUN wine python.exe get-pip.py
+
+RUN wine python.exe -m pip --version
+# CMD wine python.exe -m pip --version
+
+# CMD wine python.exe -c "print('hello world')"
