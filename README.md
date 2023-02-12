@@ -4,8 +4,7 @@ The installer will install the `OfficeSetup.exe` in [docker_resources](docker_re
 
 You will still need a valid license to use the software longer than the trial period.
 
-Once installed, you can test it by typing:
-
+Once built, you can run the container and test it with:
 ```bash
 wine powerpnt
 ```

@@ -12,5 +12,3 @@ docker container run --name wo_install_office --net=host --ipc=host -e DISPLAY -
 
 echo "=>" Creating Image with installed Office
 docker commit wo_install_office wo_office_installed
-
-bash ./run_office_image.sh
