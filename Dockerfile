@@ -11,15 +11,18 @@ RUN echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 RUN pacman -Syyu --noconfirm
 
 # add user
-ARG SERVICE_NAME="file_sorter"
+ARG SERVICE_NAME="wineuser"
 ENV SERVICE_NAME=${SERVICE_NAME}
 
-RUN groupadd -r $SERVICE_NAME && useradd -r -g $SERVICE_NAME $SERVICE_NAME
+RUN groupadd --gid 1000 -r $SERVICE_NAME && useradd --uid 1000 -r -g $SERVICE_NAME $SERVICE_NAME
 ENV HOME="/home/$SERVICE_NAME"
 RUN mkdir -p $HOME
 RUN chown -R $SERVICE_NAME:$SERVICE_NAME $HOME
 # give user sudo rights
 RUN echo "$SERVICE_NAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# enable mountpoint
+VOLUME /mnt/host
 
 # switch to user
 WORKDIR $HOME
@@ -43,7 +46,7 @@ ENV WINEPREFIX $HOME/.msoffice
 RUN mkdir $WINEPREFIX
 
 FROM wine32 as wine32_install_office
-ARG SERVICE_NAME="file_sorter"
+ARG SERVICE_NAME="wineuser"
 ENV SERVICE_NAME=${SERVICE_NAME}
 
 # copy files
