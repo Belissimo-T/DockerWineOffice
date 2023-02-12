@@ -9,4 +9,4 @@ Once built, you can run the container and test it with:
 wine powerpnt
 ```
 
-![image](https://user-images.githubusercontent.com/37810842/218285787-dacc4cf6-4abc-4773-abd5-efd3ba0c6580.png)
+![Manjaro Linux screenshot showing a Microsoft PowerPoint window and a console window with the output of neofetch next to one another.](https://user-images.githubusercontent.com/37810842/218285787-dacc4cf6-4abc-4773-abd5-efd3ba0c6580.png)
